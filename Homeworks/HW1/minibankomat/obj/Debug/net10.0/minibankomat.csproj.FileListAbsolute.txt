@@ -1,0 +1,15 @@
+D:\programming\Homeworks\HW1\minibankomat\bin\Debug\net10.0\minibankomat.exe
+D:\programming\Homeworks\HW1\minibankomat\bin\Debug\net10.0\minibankomat.deps.json
+D:\programming\Homeworks\HW1\minibankomat\bin\Debug\net10.0\minibankomat.runtimeconfig.json
+D:\programming\Homeworks\HW1\minibankomat\bin\Debug\net10.0\minibankomat.dll
+D:\programming\Homeworks\HW1\minibankomat\bin\Debug\net10.0\minibankomat.pdb
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.GeneratedMSBuildEditorConfig.editorconfig
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.AssemblyInfoInputs.cache
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.AssemblyInfo.cs
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.csproj.CoreCompileInputs.cache
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.sourcelink.json
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.dll
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\refint\minibankomat.dll
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.pdb
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\minibankomat.genruntimeconfig.cache
+D:\programming\Homeworks\HW1\minibankomat\obj\Debug\net10.0\ref\minibankomat.dll
