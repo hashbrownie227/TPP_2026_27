@@ -18,7 +18,7 @@ class Bank
 
     public void Print(string currency="₽")
     {
-        Console.WriteLine($"Нынешний баланс: {Balance} {currency}");
+        Console.WriteLine($"\nНынешний баланс: {Balance} {currency}\n");
     }
 
     public void Add(int sum)
