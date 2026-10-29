@@ -117,3 +117,107 @@ partial class Program
         }
     }
 }
+
+
+
+
+
+
+
+
+using System;
+class Character
+{
+    string name;
+    int hp;
+    int power;
+    static int count;
+
+    public static int HowMany()
+    {
+        return count;
+    }
+
+    public static bool IsValidStats(int hp, int power)
+    {
+        return hp > 0 && power > 0;
+    }
+
+    public Character(string name="Alexey", int hp=100, int power=10)
+    {
+        if (Character.IsValidStats(hp, power))
+        {
+            this.name = name;
+            this.hp = hp;
+            this.power = power;
+        }
+        else
+        {
+            Console.WriteLine("Неверные параметры персонажа. Задаю параметры hp и power по умолчанию");
+            this.name = name;
+            this.hp = 100;
+            this.power = 10;
+        }
+        count++;
+    }
+    public string Name
+    {
+        get{return name; }
+    }
+
+    public int Hp
+    {
+        get{return hp; }
+    }
+
+    public int Power
+    {
+        get{return power; }
+    }
+
+    void TakeDamage(int damage)
+    {
+        hp -= damage;         
+    }
+
+    public virtual void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"{target.Name} атакован.  Текущее HP {target.Name} - {target.Hp}");
+    }
+
+    public void GetStatus()
+    {
+        Console.WriteLine($"Статус персонажа{Name}:\nHP: {Hp}");
+    }
+
+    public bool IsALive()
+    {
+        if (Hp > 0) return true;
+        else return false;
+    }
+}
+
+
+class Player: Character
+{
+    public Player(string name="Alexey", int hp=100, int power=10): base(name, hp, power){}
+
+    public override void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"Я остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
+    }
+}
+
+class Enemy: Character
+{
+    public Enemy(string name="Alexey", int hp=100, int power=10): base(name, hp, power){}
+
+    public override void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"Мухехехехе какой я злой. Я атаковал {target.Name}. Его текущее HP - {target.Hp}");
+    }
+
+}

@@ -33,16 +33,61 @@ class Character
         }
         count++;
     }
-
-    public void Attack(Character target)
+    public string Name
     {
-        target.hp -= this.power;
-        Console.WriteLine($"{target.name} атакован.  Текущее HP {target.name} - {target.hp}");
+        get{return name; }
     }
 
-    public void GetStatus()
+    public int Hp
     {
-        Console.WriteLine($"Статус персонажа{this.name}:\nHP: {this.hp}");
+        get{return hp; }
+    }
+
+    public int Power
+    {
+        get{return power; }
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;         
+    }
+
+    public virtual void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"{target.Name} атакован.  Текущее HP {target.Name} - {target.Hp}");
+    }
+
+    public override string ToString()
+    {
+        return $"{Name}: (HP: {Hp}, урон: {Power})";
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Character other && this.Name == other.Name;
+    }
+
+    public override int GetHashCode()
+    {
+        return Name.GetHashCode();
+    }
+
+    public static bool operator ==(Character obj1, Character obj2)
+    {
+        return Equals(obj1, obj2);
+    }
+
+    public static bool operator !=(Character obj1, Character obj2)
+    {
+        return !Equals(obj1, obj2);
+    }
+
+    public bool IsAlive()
+    {
+        if (Hp > 0) return true;
+        else return false;
     }
 }
 
@@ -50,10 +95,59 @@ class Character
 class Player: Character
 {
     public Player(string name="Alexey", int hp=100, int power=10): base(name, hp, power){}
+
+    public override void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"Я остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
+    }
 }
 
 class Enemy: Character
 {
     public Enemy(string name="Alexey", int hp=100, int power=10): base(name, hp, power){}
 
+    public override void Attack(Character target)
+    {
+        target.TakeDamage(Power);
+        Console.WriteLine($"Мухехехехе какой я злой. Я атаковал {target.Name}. Его текущее HP - {target.Hp}");
+    }
+
+}
+
+
+
+
+class Program
+{
+    static void Main()
+    {
+        List<Character> characters = new List<Character>
+        {
+            new Player("Алексей", 100, 15),
+            new Enemy("Рамен", 110, 10)
+        };
+
+        Character player1 = characters[0];
+        Character enemy1  = characters[1];
+
+        Console.WriteLine($"Бой начинается!\n");
+        Console.WriteLine(player1);
+        Console.WriteLine(enemy1);
+        Console.WriteLine();
+
+        while (player1.IsAlive() && enemy1.IsAlive())
+        {
+            player1.Attack(enemy1);
+            Console.WriteLine();
+            if (!enemy1.IsAlive()) break;
+            enemy1.Attack(player1);
+            Console.WriteLine();
+        }
+
+        if (player1.IsAlive())
+            Console.WriteLine($"{player1.Name} победил!");
+        else
+            Console.WriteLine($"{enemy1.Name} победил!");
+    }
 }
