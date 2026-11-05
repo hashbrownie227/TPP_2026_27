@@ -100,7 +100,7 @@ class Player: Character
     public override void Attack(Character target)
     {
         target.TakeDamage(Power);
-        Console.WriteLine($"Я, {this.Name} остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
+        Console.WriteLine($"Я, {this.Name}, остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
     }
 }
 
