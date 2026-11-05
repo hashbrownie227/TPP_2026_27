@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 class Character
 {
     string name;
@@ -99,7 +100,7 @@ class Player: Character
     public override void Attack(Character target)
     {
         target.TakeDamage(Power);
-        Console.WriteLine($"Я остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
+        Console.WriteLine($"Я, {this.Name}, остановлю злодея {target.Name}! Его текущее HP - {target.Hp}");
     }
 }
 
@@ -110,11 +111,10 @@ class Enemy: Character
     public override void Attack(Character target)
     {
         target.TakeDamage(Power);
-        Console.WriteLine($"Мухехехехе какой я злой. Я атаковал {target.Name}. Его текущее HP - {target.Hp}");
+        Console.WriteLine($"Мухехехехе какой я, {this.Name}, злой. Я атаковал {target.Name}. Его текущее HP - {target.Hp}");
     }
 
 }
-
 
 
 
@@ -125,29 +125,50 @@ class Program
         List<Character> characters = new List<Character>
         {
             new Player("Алексей", 100, 15),
-            new Enemy("Рамен", 110, 10)
+            new Enemy("Очень плохой", 110, 10),
+            new Player("Леонид", 98, 16),
+            new Enemy("Плохой", 111, 25)
         };
 
-        Character player1 = characters[0];
-        Character enemy1  = characters[1];
-
-        Console.WriteLine($"Бой начинается!\n");
-        Console.WriteLine(player1);
-        Console.WriteLine(enemy1);
+        Console.WriteLine($"Бой начинается! Все бьют друг друга по кругу\n");
+        foreach (Character el in characters)
+        {
+            Console.WriteLine(el);
+        }
         Console.WriteLine();
 
-        while (player1.IsAlive() && enemy1.IsAlive())
+        while (characters.Count > 1)
         {
-            player1.Attack(enemy1);
-            Console.WriteLine();
-            if (!enemy1.IsAlive()) break;
-            enemy1.Attack(player1);
-            Console.WriteLine();
+            for (int i = 0; i < characters.Count; i++)
+            {
+                if (characters.Count == 1) break;
+                if (i == characters.Count - 1)
+                {
+                    characters[i].Attack(characters[0]);
+                    Console.WriteLine();
+                    if (!characters[0].IsAlive())
+                    {
+                        Console.WriteLine($"{characters[0].Name} пал!\n");
+                        characters.RemoveAt(0);
+                        i--; 
+                    }
+                }
+                else
+                {
+                    characters[i].Attack(characters[i+1]);
+                    Console.WriteLine();
+                    if (!characters[i+1].IsAlive())
+                    {
+                        Console.WriteLine($"{characters[i+1].Name} пал!\n");
+                        characters.RemoveAt(i+1);
+                        i--; 
+                    }
+                }
+            }
         }
-
-        if (player1.IsAlive())
-            Console.WriteLine($"{player1.Name} победил!");
-        else
-            Console.WriteLine($"{enemy1.Name} победил!");
+        if (characters.Count == 1)
+        {
+            Console.WriteLine($"{characters[0].Name} победил!!!");
+        }
     }
 }
